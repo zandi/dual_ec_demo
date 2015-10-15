@@ -68,3 +68,6 @@ Additionally, the more recently published projectbullrun site's info on dual-ec 
 superb. For a proper, in-depth look at the algorithm, how it was standardized, the
 differences between the versions, and emperical evidence on cracking, go there. It's 
 really cool. (http://projectbullrun.org/dual-ec/index.html) (http://projectbullrun.org/dual-ec/documents/dual-ec-20150731.pdf)
+
+Also, this talk by Matthew Green is really good. Unlike me, he's an actual cryptographer!
+https://www.usenix.org/conference/woot14/technical-sessions/presentation/practical-kleptography
