@@ -205,7 +205,7 @@ class prng:
         self.state = F(seed).n
         #this gives a 'cycle' of 71 elements...
         self.Q = Point(C,F(153116),F(171795)) # <Q> has order 6257
-        self.P = 3*self.Q #TODO: hardcode this so we don't publish the backdoor
+        self.P = Point(C,F(285710),F(143307))
 
     def get_num(self):
         """
