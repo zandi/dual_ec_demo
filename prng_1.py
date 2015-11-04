@@ -10,6 +10,9 @@ class prng:
         arithmetic code quite nice. We do take a
         performance hit, but not a *ton*
 
+        n: order of field (PICK A PRIME!!!)
+        seed: initial state of RNG
+
         note that a seed of 88993 w/ default order
         gives an early repeated value
         """
@@ -27,8 +30,11 @@ class prng:
 
         try to copy the EC_DRBG algorithm
 
-        THIS IS SUPER BROKEN.
+        THIS IS SUPER BROKEN. --- why did I comment this?
+        TODO: review algorithm and see if it's super broken
         """
+        #TODO: review which version of DUAL_EC_DRBG I was trying
+        # to copy here, and if I did so correctly
         r = self.state * self.P
         self.state = r * self.P
         t = r * self.Q
@@ -36,6 +42,8 @@ class prng:
 
     def find_repeat(self):
         """
+        UTILITY/TEST FUNCTION
+
         get random numbers until we receive a 
         number which we've already seen.
 
@@ -54,6 +62,8 @@ class prng:
 
     def test_output(self):
         """
+        UTILITY/TEST FUNCTION
+
         Given the default finite field
         of order 104729, we almost always
         observe a cycle of 26182 elements.

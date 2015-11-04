@@ -11,11 +11,13 @@ class Guesser:
         given the initial output,
         init out guesser so we can guess
         all remaining outputs
+
+        output: some output from the prng_1 prng
         """
-        F = FiniteField(104729,1)
-        P = F(7)
+        F = FiniteField(104729,1) #use the same finite field at the prng
+        P = F(7) #same parameters
         Q = F(2)
-        PQ_inverse = (P*Q).inverse()
+        PQ_inverse = (P*Q).inverse() #the trick! we have multiplicative inverses!
         T = F(output)
         oldstate = T*PQ_inverse
         curstate = oldstate*P*P 
@@ -38,11 +40,13 @@ class Guesser:
 #output = state * P * Q
 def get_state(p):
     """
+    UTILITY/TEST FUNCTION
+
     Given the (assumed default) prng
     with various known public constants,
     recover the prng's current state
     """
-    #TODO: pull these from prng object ?
+    #TODO: pull these from prng object. that would be much cleaner
     F = FiniteField(104729,1)
     P = F(7)
     Q = F(2)
@@ -54,6 +58,9 @@ def get_state(p):
     return curstate.n
 
 def test():
+    """
+    UTILITY/TEST FUNCTION
+    """
     print("randomly generating/recovering 5 prngs")
     seeds = [random.randint(1,104729) for i in range(0,5)]
     print("seeds: ",seeds)
@@ -74,6 +81,10 @@ def test():
 def attack(ip, port):
     """
     attack the service at ip:port
+
+    this method uses our guesser to do the heavy
+    lifting, and instead focuses on the
+    boilerplate socket communication/json parsing
     """
     key = None
     msg={"team": "cobra"}
