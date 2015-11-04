@@ -14,10 +14,9 @@ class prng:
         seed: initial state of RNG
 
         note that a seed of 88993 w/ default order
-        gives an early repeated value
+        gives an early repeated value. here there be pitfalls
         """
         self.group = FiniteField(n,1) #guarantees we use integers mod p
-        #e = 5
         #TODO: perhaps dynamically pick p and q?
         self.state = self.group(seed)
         self.P = self.group(7)
