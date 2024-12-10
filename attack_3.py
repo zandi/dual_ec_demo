@@ -7,6 +7,10 @@ import json
 import time
 import ssl
 
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
+
 # try to implement attack described int
 # "The NSA Back Door to NIST" by Thomas C. Hales
 # Notices of the AMS, V. 61 No. 2
@@ -92,7 +96,7 @@ def attack(ip, port):
     key = None
     msg={"team": "cobra"}
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s = ssl.wrap_socket(sock)
+    s = ssl_context.wrap_socket(sock)
     print("connecting")
     s.connect((ip, port))
     guess_machine = None

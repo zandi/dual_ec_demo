@@ -12,6 +12,10 @@ FORMAT = '%(asctime)-15s [%(ip)s:%(port)s] %(team)s %(message)s'
 logging.basicConfig(filename='log',level=logging.INFO,format=FORMAT)
 LOGGER = logging.getLogger('server');
 
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain("serv_cert.pem", keyfile="serv_key.pem")
+ssl_context.check_hostname = False
+
 class GameHandler(socketserver.StreamRequestHandler):
     """
     handle each connection, playing the game
@@ -56,7 +60,7 @@ class GameHandler(socketserver.StreamRequestHandler):
         self.log_extra = {'ip': None, 'port': None, 'team': None}
         LOGGER.debug('set log_extra', extra=self.log_extra)
 
-        self.ssl_sock = ssl.wrap_socket(self.request, server_side=True, certfile="serv_cert.pem", keyfile="serv_key.pem")
+        self.ssl_sock = ssl_context.wrap_socket(self.request, server_side=True)
         self.log_extra['ip'], self.log_extra['port'] = self.ssl_sock.getpeername()
         LOGGER.info('connected', extra=self.log_extra)
 

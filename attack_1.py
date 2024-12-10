@@ -5,6 +5,10 @@ import random
 import json
 import ssl
 
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
+
 class Guesser:
     def __init__(self, output):
         """
@@ -89,7 +93,7 @@ def attack(ip, port):
     key = None
     msg={"team": "cobra"}
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s = ssl.wrap_socket(sock)
+    s = ssl_context.wrap_socket(sock)
     print("connecting")
     s.connect((ip, port))
     guess_machine = None
