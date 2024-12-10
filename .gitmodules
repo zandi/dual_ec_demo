@@ -1,3 +1,3 @@
 [submodule "ecff"]
 	path = ecff
-	url = git@github.com:j2kun/elliptic-curves-finite-fields.git
+	url = https://github.com/j2kun/elliptic-curves-finite-fields.git
